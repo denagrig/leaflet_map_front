@@ -9,12 +9,11 @@ export const logInUser = async (loginAndPassword: LoginAndPassword) => {
       Role: Role.HasErrors,
       Name: "",
       Phone: 0,
-      Email : ""
+      Email: "",
     }
 
-    const axios = require('axios');
-    axios.get("http://localhost:8088/get/users")
-    .then(function (response : any) {
+    const axios = require("axios")
+    axios.get("http://localhost:8088/get/users").then(function (response: any) {
       const allUsers: User[] = response.data
 
       allUsers.map((user) => {
@@ -32,7 +31,6 @@ export const logInUser = async (loginAndPassword: LoginAndPassword) => {
   })
 }
 
-
 export const getUser = async () => {
   return new Promise<User>((resolve) => {
     const curUser: User = JSON.parse(localStorage.getItem("curUser") || "[]")
@@ -48,7 +46,7 @@ export const logOutUser = async () => {
       Role: Role.LoggedOut,
       Name: "",
       Phone: 0,
-      Email : ""
+      Email: "",
     }
 
     localStorage.setItem("curUser", JSON.stringify(emptyUser))
@@ -58,19 +56,17 @@ export const logOutUser = async () => {
 
 export const postUser = async (userData: User) => {
   return new Promise<void>((resolve) => {
-
-    const allUsers: User[] = JSON.parse(localStorage.getItem("allUsers") || "[]")
+    const allUsers: User[] = JSON.parse(
+      localStorage.getItem("allUsers") || "[]"
+    )
     let wrongLogin = 0
-   
 
     allUsers.map((user) => {
-      if (
-        userData.Login == user.Login
-      ) {
+      if (userData.Login == user.Login) {
         wrongLogin = 1
       }
     })
-    if(wrongLogin == 0) {
+    if (wrongLogin == 0) {
       allUsers.push(userData)
     }
     localStorage.setItem("allUsers", JSON.stringify(allUsers))

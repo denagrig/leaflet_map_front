@@ -21,7 +21,7 @@ const Login = () => {
     if(curUser.Role == Role.HasErrors) {
       alert("Введены неверные данные!")
     }
-    else if (curUser.Role == Role.User) navigate("/map")
+    else if (curUser.Role == Role.User) navigate("/admin/users")
     else if (curUser.Role == Role.Admin) navigate("/admin/users")
   }, [curUser.Role, navigate])
   

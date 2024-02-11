@@ -61,5 +61,4 @@ type DatabaseCoords = {
   timestamp: string,
 }
 
-
 export type {DeviceData, CordsPair, User, LoginAndPassword, UserTableItem, deviceTableItem, MarkerPos, DatabseDeviceData}

@@ -6,7 +6,7 @@ import {
   UserSearchTableContainer,
   UserSearchTableHead,
 } from "src/pages/Admin/UserList/UserList.styled"
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
 import {
   useMaterialReactTable,
   type MRT_ColumnDef,
@@ -26,19 +26,9 @@ import {
 } from "@mui/material"
 import { User, UserTableItem } from "src/types"
 import { Page, Role } from "src/data"
-import { useNavigate } from "react-router-dom"
-import { useAppSelector } from "src/hooks"
 
 const AdminUsersList = () => {
-  const navigate = useNavigate()
-  const curUser: User = useAppSelector((state) => state.user.userData)
   const allUsers: User[] = JSON.parse(localStorage.getItem("allUsers") || "[]")
-
-  useEffect(() => {
-    if (curUser.Role == Role.User) navigate("/map")
-    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors)
-      navigate("/login")
-  }, [curUser.Role, navigate])
 
   const convertData = (userData: User[]) => {
     const userTableData: UserTableItem[] = []

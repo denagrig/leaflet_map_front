@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux"
 import { useAppSelector } from "src/hooks"
 import { Role, markersData, users} from "src/data"
 import MainPage from "src/pages/Map/Map"
+import { loadDevicesData } from "./slices/deviceSlice"
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -16,6 +17,7 @@ const App = () => {
     localStorage.setItem("deviceData", JSON.stringify(markersData))
     localStorage.setItem("allUsers", JSON.stringify(users))
     dispatch(loadUser())
+    dispatch(loadDevicesData())
   }, [dispatch])
 
   const userStatus: Role = useAppSelector((state) => state.user.userData.Role)

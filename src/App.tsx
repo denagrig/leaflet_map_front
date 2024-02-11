@@ -6,7 +6,6 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useAppSelector } from "src/hooks"
 import { Role, markersData, users} from "src/data"
-import MainPage from "src/pages/Map/Map"
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -25,7 +24,6 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<Login />} />
-          <Route path="/map" element={<MainPage />} />
         </Routes>
       </BrowserRouter>
     )

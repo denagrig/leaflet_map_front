@@ -1,5 +1,6 @@
 import Sidebar from "src/components/Sidebar/Sidebar"
 import {
+  UserListButton,
   UserListHeader,
   UserListPageContainer,
   UserSearchInput,
@@ -138,6 +139,9 @@ const AdminUsersList = () => {
                         <MRT_TableBodyCellValue cell={cell} table={table} />
                       </TableCell>
                     ))}
+                    <TableCell>
+                      <UserListButton>Удалить</UserListButton>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

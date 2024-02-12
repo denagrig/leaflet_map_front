@@ -28,6 +28,7 @@ import { DeviceData, User, deviceTableItem } from "src/types"
 import { Page, Role } from "src/data"
 import { useAppSelector } from "src/hooks"
 import { useNavigate } from "react-router-dom"
+import { DeviceListButton } from "./DeviceList.styled"
 
 const AdminUsersList = () => {
   const navigate = useNavigate()
@@ -134,6 +135,9 @@ const AdminUsersList = () => {
                         <MRT_TableBodyCellValue cell={cell} table={table} />
                       </TableCell>
                     ))}
+                    <TableCell>
+                      <DeviceListButton>Удалить</DeviceListButton>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

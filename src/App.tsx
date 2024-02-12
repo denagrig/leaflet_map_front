@@ -8,6 +8,8 @@ import { useAppSelector } from "src/hooks"
 import { Role, markersData, users} from "src/data"
 import MainPage from "src/pages/Map/Map"
 import { loadDevicesData } from "./slices/deviceSlice"
+import UserList from "./pages/Admin/UserList/UserList"
+import DeviceList from "./pages/Admin/DeviceList/DeviceList"
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -28,6 +30,8 @@ const App = () => {
         <Routes>
           <Route path="*" element={<Login />} />
           <Route path="/map" element={<MainPage />} />
+          <Route path="/admin/users" element={<UserList />} />
+          <Route path="/admin/devices" element={<DeviceList />} />
         </Routes>
       </BrowserRouter>
     )

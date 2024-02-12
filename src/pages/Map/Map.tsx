@@ -2,7 +2,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css"
 import "leaflet-defaulticon-compatibility"
-import { Status, green_icon, red_icon, yellow_icon } from "src/data"
+import { Page, Status, green_icon, red_icon, yellow_icon } from "src/data"
 import { CordsPair, DeviceData, MarkerPos, User } from "src/types"
 import {
   MainPageContainer, MarkerButton, MarkerLi, ShowMoreButton,
@@ -15,6 +15,7 @@ import { AppDispatch } from "src/store"
 import { changeMarkerStatus } from "src/slices/deviceSlice"
 import { createControlComponent } from "@react-leaflet/core"
 import React, { useEffect } from "react"
+import Sidebar from "src/components/Sidebar/Sidebar"
 
 const MainPage = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -74,6 +75,7 @@ const MainPage = () => {
   
   return (
     <MainPageContainer>
+      <Sidebar curPage = {Page.userData}/>
       <MapContainer
         style={{ height: "100vh", width: "80%", overflow: "hidden" }}
         center={[60.038353, 30.322507]}

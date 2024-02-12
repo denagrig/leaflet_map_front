@@ -38,7 +38,7 @@ const AdminUsersList = () => {
         login: user.Login,
         gmail: user.Email,
         phoneNumber: user.Phone + "",
-        role: user.Role == Role.Admin ? "Администратор" : "Пользоатель",
+        role: user.Role == Role.Admin ? "Администратор" : "Пользователь",
       }
       userTableData.push(userTableRow)
     })

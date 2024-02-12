@@ -6,7 +6,7 @@ import {
   UserSearchTableContainer,
   UserSearchTableHead,
 } from "src/pages/Admin/UserList/UserList.styled"
-import {useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import {
   useMaterialReactTable,
   type MRT_ColumnDef,
@@ -24,11 +24,14 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material"
-import { DeviceData, deviceTableItem } from "src/types"
-import { Page } from "src/data"
+import { DeviceData, User, deviceTableItem } from "src/types"
+import { Page, Role } from "src/data"
 import { useAppSelector } from "src/hooks"
+import { useNavigate } from "react-router-dom"
 
 const AdminUsersList = () => {
+  const navigate = useNavigate()
+  const curUser: User = useAppSelector((state) => state.user.userData)
   const devicesData: DeviceData[] = useAppSelector((state) => state.device.devicesData)
 
   const convertData = (deviceData : DeviceData[]) =>{
@@ -44,6 +47,11 @@ const AdminUsersList = () => {
     })
     return deviceTableData
   }
+
+  useEffect(() => {
+    if (curUser.Role == Role.User) navigate("/map")
+    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors) navigate("/login")
+  }, [curUser.Role, navigate])
 
   const columns = useMemo<MRT_ColumnDef<deviceTableItem>[]>(
     () => [
@@ -96,7 +104,7 @@ const AdminUsersList = () => {
               alignItems: "center",
             }}
           >
-            <UserSearchInput placeholder= {"Поиск устройства"} table={table}/>
+            <UserSearchInput placeholder= {"Поиск устройства"} table={table} />
             <MRT_TablePagination table={table} />
           </Box>
           <TableContainer>

@@ -6,7 +6,7 @@ import {
   UserSearchTableContainer,
   UserSearchTableHead,
 } from "src/pages/Admin/UserList/UserList.styled"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import {
   useMaterialReactTable,
   type MRT_ColumnDef,
@@ -26,11 +26,20 @@ import {
 } from "@mui/material"
 import { User, UserTableItem } from "src/types"
 import { Page, Role } from "src/data"
+import { useNavigate } from "react-router-dom"
+import { useAppSelector } from "src/hooks"
 
 const AdminUsersList = () => {
+  const navigate = useNavigate()
+  const curUser: User = useAppSelector((state) => state.user.userData)
   const allUsers: User[] = JSON.parse(localStorage.getItem("allUsers") || "[]")
 
-  const convertData = (userData: User[]) => {
+  useEffect(() => {
+    if (curUser.Role == Role.User) navigate("/map")
+    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors) navigate("/login")
+  }, [curUser.Role, navigate])
+
+  const convertData = (userData : User[]) =>{
     const userTableData: UserTableItem[] = []
     userData.map((user: User) => {
       const userTableRow: UserTableItem = {
@@ -38,7 +47,7 @@ const AdminUsersList = () => {
         login: user.Login,
         gmail: user.Email,
         phoneNumber: user.Phone + "",
-        role: user.Role == Role.Admin ? "Администратор" : "Пользователь",
+        role: user.Role == Role.Admin ? "Администратор" : "Пользоатель",
       }
       userTableData.push(userTableRow)
     })
@@ -60,11 +69,11 @@ const AdminUsersList = () => {
         header: "Почта",
       },
       {
-        accessorKey: "phoneNumber",
+        accessorKey: "phoneNumber", 
         header: "Телефон",
       },
       {
-        accessorKey: "role",
+        accessorKey: "role", 
         header: "Роль",
       },
     ],
@@ -88,7 +97,7 @@ const AdminUsersList = () => {
   })
   return (
     <UserListPageContainer>
-      <Sidebar curPage={Page.userData} />
+      <Sidebar curPage = {Page.userData}/>
       <UserSearchTableContainer>
         <Stack sx={{ m: "2rem 0" }}>
           <UserListHeader variant="h3">Пользователи</UserListHeader>
@@ -99,7 +108,7 @@ const AdminUsersList = () => {
               alignItems: "center",
             }}
           >
-            <UserSearchInput placeholder={"Поиск пользователя"} table={table} />
+            <UserSearchInput placeholder= {"Поиск пользователя"} table={table} />
             <MRT_TablePagination table={table} />
           </Box>
           <TableContainer>
@@ -125,12 +134,7 @@ const AdminUsersList = () => {
                 {table.getRowModel().rows.map((row) => (
                   <TableRow key={row.id} selected={row.getIsSelected()}>
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell
-                        width="20%"
-                        align="center"
-                        variant="body"
-                        key={cell.id}
-                      >
+                      <TableCell width = "20%" align="center" variant="body" key={cell.id}>
                         <MRT_TableBodyCellValue cell={cell} table={table} />
                       </TableCell>
                     ))}

@@ -2,7 +2,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css"
 import "leaflet-defaulticon-compatibility"
-import { Page, Status, green_icon, red_icon, yellow_icon } from "src/data"
+import { Page, Role, Status, green_icon, red_icon, yellow_icon } from "src/data"
 import { CordsPair, DeviceData, MarkerPos, User } from "src/types"
 import {
   MainPageContainer, MarkerButton, MarkerLi, ShowMoreButton,
@@ -14,11 +14,13 @@ import { useDispatch } from "react-redux"
 import { AppDispatch } from "src/store"
 import { changeMarkerStatus } from "src/slices/deviceSlice"
 import { createControlComponent } from "@react-leaflet/core"
-import React, { useEffect } from "react"
 import Sidebar from "src/components/Sidebar/Sidebar"
+import React, { useEffect } from "react"
+import { useNavigate } from "react-router"
 
 const MainPage = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
   const curUser: User = useAppSelector((state) => state.user.userData)
   const markersData: DeviceData[] = useAppSelector((state) => state.device.devicesData)
   const mapRef = React.useRef() as React.MutableRefObject<L.Map>
@@ -65,7 +67,8 @@ const MainPage = () => {
     if (mapRef.current) {
       document.addEventListener("onunload", clearMap)
     }
-  }, [curUser.Role])
+    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors) navigate("/login")
+  }, [curUser.Role, navigate])
 
   const clearMap = () => {
     mapRef.current.remove()

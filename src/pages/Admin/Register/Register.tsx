@@ -11,14 +11,22 @@ import {
   RegisterButton,
 } from "src/pages/Admin/Register/Register.styled"
 import { User } from "src/types"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAppSelector } from "src/hooks"
 import { AppDispatch } from "src/store"
 import { useDispatch } from "react-redux"
 import { registerUser } from "src/slices/userSlice"
 
 const Register = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
+  const curUser: User = useAppSelector((state) => state.user.userData)
 
+  useEffect(() => {
+    if (curUser.Role == Role.User) navigate("/map")
+    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors) navigate("/login")
+  }, [curUser.Role, navigate])
   const [userData, setUserData] = useState<User>({
     Login: "",
     Password: "",

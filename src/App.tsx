@@ -10,6 +10,7 @@ import MainPage from "src/pages/Map/Map"
 import { loadDevicesData } from "./slices/deviceSlice"
 import UserList from "./pages/Admin/UserList/UserList"
 import DeviceList from "./pages/Admin/DeviceList/DeviceList"
+import Register from "./pages/Admin/Register/Register"
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/map" element={<MainPage />} />
           <Route path="/admin/users" element={<UserList />} />
           <Route path="/admin/devices" element={<DeviceList />} />
+          <Route path="/admin/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     )

@@ -25,7 +25,8 @@ const Register = () => {
 
   useEffect(() => {
     if (curUser.Role == Role.User) navigate("/map")
-    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors) navigate("/login")
+    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors)
+      navigate("/login")
   }, [curUser.Role, navigate])
   const [userData, setUserData] = useState<User>({
     Login: "",
@@ -46,10 +47,29 @@ const Register = () => {
       userData.Name == ""
     ) {
       alert("Пожалуйста введите все данные")
-    } 
-    else {
-      dispatch(registerUser(userData))
-      alert("Пользователь успешно зарегестрирован")
+    } else {
+      if (
+        !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Login) ||
+        !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Password) ||
+        !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Email) ||
+        !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Name)
+      )
+        alert("Ошибка во введенных данных")
+      else if (
+        userData.Login.length > 15 ||
+        userData.Login.length < 8 ||
+        userData.Password.length > 15 ||
+        userData.Password.length < 8 ||
+        userData.Email.length > 15 ||
+        userData.Email.length < 8 ||
+        userData.Name.length > 15 ||
+        userData.Name.length < 8
+      )
+        alert("Ошибка в длинне введенных данных")
+      else {
+        dispatch(registerUser(userData))
+        alert("Пользователь успешно зарегестрирован")
+      }
     }
   }
 

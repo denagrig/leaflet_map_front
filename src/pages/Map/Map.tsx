@@ -100,7 +100,7 @@ const MainPage = () => {
     console.log(marker)
 
     let csvContent = "data:text/csv;charset=utf-8,"
-    csvContent += "id" + ";" + marker.id + "\r\n"
+    csvContent += "id" + ";" + marker.id + "\r\n",
     csvContent +=
       "curent coordinates" +
       ";" +
@@ -126,7 +126,7 @@ const MainPage = () => {
       marker.previousCords[3].latitude +
       ";" +
       marker.previousCords[3].longitude +
-      "\r\n"
+      "\r\n",
     csvContent += "last activity" + ";" + marker.lastActivity + "\r\n"
     if (marker.status == "Активен")
       csvContent += "status" + ";" + "active" + "\r\n"

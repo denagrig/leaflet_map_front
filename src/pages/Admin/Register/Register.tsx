@@ -50,20 +50,14 @@ const Register = () => {
     } else {
       if (
         !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Login) ||
-        !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Password) ||
-        !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Email) ||
-        !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Name)
+        !/^[a-zA-Zа-яА-я0-9]+$/.test(userData.Password)
       )
         alert("Ошибка во введенных данных")
       else if (
         userData.Login.length > 15 ||
         userData.Login.length < 8 ||
         userData.Password.length > 15 ||
-        userData.Password.length < 8 ||
-        userData.Email.length > 15 ||
-        userData.Email.length < 8 ||
-        userData.Name.length > 15 ||
-        userData.Name.length < 8
+        userData.Password.length < 8
       )
         alert("Ошибка в длинне введенных данных")
       else {

@@ -46,6 +46,7 @@
     "@react-leaflet/core": "^2.1.0",
     "@reduxjs/toolkit": "^1.9.7",
     "@types/leaflet-routing-machine": "^3.2.8",
+    "@types/material-ui": "^0.21.17",
     "@types/react-dom": "^18.2.14",
     "@types/react-table": "^7.7.19",
     "axios": "^1.6.5",

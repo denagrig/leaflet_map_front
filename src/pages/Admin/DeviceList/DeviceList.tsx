@@ -2,7 +2,6 @@ import Sidebar from "src/components/Sidebar/Sidebar"
 import {
   UserListHeader,
   UserListPageContainer,
-  UserSearchInput,
   UserSearchTableContainer,
   UserSearchTableHead,
 } from "src/pages/Admin/UserList/UserList.styled"
@@ -14,6 +13,7 @@ import {
   MRT_TablePagination,
   MRT_ToolbarAlertBanner,
   flexRender,
+  MRT_GlobalFilterTextField,
 } from "material-react-table"
 import {
   Box,
@@ -105,7 +105,7 @@ const AdminUsersList = () => {
               alignItems: "center",
             }}
           >
-            <UserSearchInput placeholder= {"Поиск устройства"} table={table} />
+            <MRT_GlobalFilterTextField placeholder= {"Поиск устройства"} table={table} />
             <MRT_TablePagination table={table} />
           </Box>
           <TableContainer>

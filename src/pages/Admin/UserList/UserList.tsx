@@ -3,7 +3,6 @@ import {
   UserListButton,
   UserListHeader,
   UserListPageContainer,
-  UserSearchInput,
   UserSearchTableContainer,
   UserSearchTableHead,
 } from "src/pages/Admin/UserList/UserList.styled"
@@ -15,6 +14,7 @@ import {
   MRT_TablePagination,
   MRT_ToolbarAlertBanner,
   flexRender,
+  MRT_GlobalFilterTextField,
 } from "material-react-table"
 import {
   Box,
@@ -26,14 +26,14 @@ import {
   TableRow,
 } from "@mui/material"
 import { User, UserTableItem } from "src/types"
-import { Page, Role } from "src/data"
+import { Page, Role, users } from "src/data"
 import { useNavigate } from "react-router-dom"
 import { useAppSelector } from "src/hooks"
 
 const AdminUsersList = () => {
   const navigate = useNavigate()
   const curUser: User = useAppSelector((state) => state.user.userData)
-  const allUsers: User[] = JSON.parse(localStorage.getItem("allUsers") || "[]")
+  const allUsers: User[] = users
 
   useEffect(() => {
     if (curUser.Role == Role.User) navigate("/map")
@@ -109,7 +109,7 @@ const AdminUsersList = () => {
               alignItems: "center",
             }}
           >
-            <UserSearchInput placeholder= {"Поиск пользователя"} table={table} />
+            <MRT_GlobalFilterTextField placeholder= {"Поиск пользователя"} table={table} />
             <MRT_TablePagination table={table} />
           </Box>
           <TableContainer>
@@ -119,13 +119,11 @@ const AdminUsersList = () => {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <TableCell align="center" variant="head" key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                            header.column.columnDef.Header ??
-                                header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                        { flexRender(
+                          header.column.columnDef.Header ??
+                              header.column.columnDef.header,
+                          header.getContext()
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>

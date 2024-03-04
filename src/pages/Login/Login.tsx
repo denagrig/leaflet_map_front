@@ -60,11 +60,11 @@ const Login = () => {
           <LoginForm>
             <LoginHeader>Войти</LoginHeader>
             <InputContainer>
-              <LoginInput type="text" onChange={handleInputLogin}></LoginInput>
+              <LoginInput data-testid="logininput" type="text" onChange={handleInputLogin}></LoginInput>
               <LoginLabel>Логин</LoginLabel>
             </InputContainer>
             <InputContainer>
-              <LoginInput type="password" onChange={handleInputPassword}></LoginInput>
+              <LoginInput data-testid="passwordinput" type="password" onChange={handleInputPassword}></LoginInput>
               <LoginLabel>Пароль</LoginLabel>
             </InputContainer>
             <LoginButton onClick={handleLogin}>Продолжить</LoginButton>

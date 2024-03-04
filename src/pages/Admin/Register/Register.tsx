@@ -130,27 +130,27 @@ const Register = () => {
         <RegisterHeader> Регистрация пользователя</RegisterHeader>
         <RegisterForm>
           <InputContainer>
-            <RegisterInput onChange={handleInputName} />
+            <RegisterInput data-testid="nameinput" onChange={handleInputName} />
             <RegisterLabel>имя</RegisterLabel>
           </InputContainer>
           <InputContainer>
-            <RegisterInput onChange={handleInputPhone} />
+            <RegisterInput data-testid="phoneinput" onChange={handleInputPhone} />
             <RegisterLabel>телефон</RegisterLabel>
           </InputContainer>
           <InputContainer>
-            <RegisterInput onChange={handleInputEmail} />
+            <RegisterInput data-testid="mailinput" onChange={handleInputEmail} />
             <RegisterLabel>e-mail</RegisterLabel>
           </InputContainer>
           <InputContainer>
-            <RegisterInput onChange={handleInputRole} />
+            <RegisterInput data-testid="roleinput" onChange={handleInputRole} />
             <RegisterLabel>роль</RegisterLabel>
           </InputContainer>
           <InputContainer>
-            <RegisterInput onChange={handleInputPassword} />
+            <RegisterInput data-testid="logininput" onChange={handleInputPassword} />
             <RegisterLabel>логин</RegisterLabel>
           </InputContainer>
           <InputContainer>
-            <RegisterInput onChange={handleInputLogin} />
+            <RegisterInput data-testid="passwordinput" onChange={handleInputLogin} />
             <RegisterLabel>пароль</RegisterLabel>
           </InputContainer>
           <RegisterButton onClick={handleRegister}>

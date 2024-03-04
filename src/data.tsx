@@ -1,4 +1,4 @@
-import { CordsPair, DeviceData, User, UserTableItem, deviceTableItem } from "src/types"
+import { CordsPair, DeviceData, LoginAndPassword, MarkerPos, User, UserTableItem, deviceTableItem } from "src/types"
 import { Icon } from "leaflet"
 import green_marker from "src/assets/green_marker.png"
 import yellow_marker from "src/assets/yellow_marker.png"
@@ -135,3 +135,161 @@ export const red_icon = new Icon({
   iconUrl: red_marker,
   iconSize: [50,50]
 })
+
+export const testUserLoggedOut:User = {
+  Login: "testtest",
+  Password: "testtest",
+  Role: Role.LoggedOut,
+  Name: "testtest",
+  Phone: 1234,
+  Email: "testtest@test.t",
+}
+
+export const testUserLoginPassword:LoginAndPassword = {
+  login: "testtest",
+  password: "testtest",
+}
+
+export const wrongLoginPassord:LoginAndPassword = {
+  login: "1",
+  password: "1",
+}
+
+export const testUserUser:User = {
+  Login: "testtest",
+  Password: "testtest",
+  Role: Role.User,
+  Name: "testtest",
+  Phone: 1234,
+  Email: "testtest@test.t",
+}
+
+export const testUserAdmin:User = {
+  Login: "testtest",
+  Password: "testtest",
+  Role: Role.Admin,
+  Name: "testtest",
+  Phone: 1234,
+  Email: "testtest@test.t",
+}
+
+
+export const testErrorUserData:User = {
+  Login: "testtest",
+  Password: "testtest",
+  Role: Role.HasErrors,
+  Name: "testtest",
+  Phone: 1234,
+  Email: "testtest@test.t",
+}
+
+
+export const testDeviceData : DeviceData[] = [{
+  id: "1",
+  curCords: {
+    latitude: 10,
+    longitude: 10,
+  },
+  previousCords: [{
+    latitude: 0,
+    longitude:1
+  },
+  {
+    latitude: 2,
+    longitude:3
+  },
+  {
+    latitude: 4,
+    longitude:5
+  },
+  {
+    latitude: 6,
+    longitude:7
+  }],
+  previousCordsStatus: [Status.Inactive, Status.Inactive, Status.Inactive, Status.Inactive],
+  lastActivity: "1234",
+  status: "Активен",
+}]
+
+export const testDeviceDataFirstActive : DeviceData[] = [{
+  id: "1",
+  curCords: {
+    latitude: 10,
+    longitude: 10,
+  },
+  previousCords: [{
+    latitude: 0,
+    longitude:1
+  },
+  {
+    latitude: 2,
+    longitude:3
+  },
+  {
+    latitude: 4,
+    longitude:5
+  },
+  {
+    latitude: 6,
+    longitude:7
+  }],
+  previousCordsStatus: [Status.Active, Status.Inactive, Status.Inactive, Status.Inactive],
+  lastActivity: "1234",
+  status: "Активен",
+}]
+
+export const testDeviceDataInactiveMarker : DeviceData[] = [{
+  id: "1",
+  curCords: {
+    latitude: 10,
+    longitude: 10,
+  },
+  previousCords: [{
+    latitude: 0,
+    longitude:1
+  },
+  {
+    latitude: 2,
+    longitude:3
+  },
+  {
+    latitude: 4,
+    longitude:5
+  },
+  {
+    latitude: 6,
+    longitude:7
+  }],
+  previousCordsStatus: [Status.Active, Status.Inactive, Status.Inactive, Status.Inactive],
+  lastActivity: "1234",
+  status: "Неактивен",
+}]
+
+export const testDeviceDataError : DeviceData[] = [{
+  id: "-1",
+  curCords: {
+    latitude: 10,
+    longitude: 10,
+  },
+  previousCords: [{
+    latitude: 1,
+    longitude:1
+  }],
+  previousCordsStatus: [Status.Inactive],
+  lastActivity: "1234",
+  status: "",
+}]
+
+export const testMarkerPos : MarkerPos = {
+  deviceNum: 0,
+  pastMarkerPos: 0
+}
+
+export const testEmptyUser: User = {
+  Login: "",
+  Password: "",
+  Role: Role.LoggedOut,
+  Name: "",
+  Phone: 0,
+  Email: "",
+}

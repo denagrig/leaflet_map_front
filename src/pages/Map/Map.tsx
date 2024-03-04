@@ -18,13 +18,11 @@ import {
   MarkerLi,
   ShowMoreButton,
 } from "src/pages/Map/Map.styled"
-import { createRoutineMachineLayer } from "src/components/RoutingMachine"
 import L from "leaflet"
 import { useAppSelector } from "src/hooks"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "src/store"
 import { changeMarkerStatus } from "src/slices/deviceSlice"
-import { createControlComponent } from "@react-leaflet/core"
 import Sidebar from "src/components/Sidebar/Sidebar"
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router"
@@ -50,21 +48,6 @@ const MainPage = () => {
     }
   }
 
-  const convertCords = (
-    curCords: CordsPair,
-    cordsArray: CordsPair[],
-    activity: Status[]
-  ) => {
-    const latLngArray: L.LatLng[] = [
-      L.latLng(curCords.latitude, curCords.longitude),
-    ]
-    cordsArray.map((cordsPair: CordsPair, index) => {
-      if (activity[index] == Status.Active)
-        latLngArray.push(L.latLng(cordsPair.latitude, cordsPair.longitude))
-    })
-    return latLngArray
-  }
-
   const showAdditionalMarker = (
     markerDataIndex: number,
     pastCordsIndex: number
@@ -76,8 +59,6 @@ const MainPage = () => {
     dispatch(changeMarkerStatus(newMarkerPos))
   }
 
-  const RoutingMachine = createControlComponent(createRoutineMachineLayer)
-
   const chooseIcon = (markerStatus: string) => {
     if (markerStatus == "Активно") return green_icon
     else return red_icon
@@ -87,8 +68,7 @@ const MainPage = () => {
     if (mapRef.current) {
       document.addEventListener("onunload", clearMap)
     }
-    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors)
-      navigate("/login")
+    if (curUser.Role == Role.LoggedOut || curUser.Role == Role.HasErrors) navigate("/login")
   }, [curUser.Role, navigate])
 
   const clearMap = () => {
@@ -157,6 +137,7 @@ const MainPage = () => {
             <Marker
               position={[marker.curCords.latitude, marker.curCords.longitude]}
               key={marker.id}
+              data-testId={marker.id}
               icon={chooseIcon(marker.status)}
             >
               <Popup>
@@ -172,6 +153,7 @@ const MainPage = () => {
                       <ShowMoreButton
                         id={"button" + marker.id}
                         onClick={() => showMore(marker.id)}
+                        data-testId="ShowMoreButton"
                       >
                         {" "}
                         +{" "}
@@ -182,6 +164,7 @@ const MainPage = () => {
                         {marker.previousCords[0].latitude},{" "}
                         {marker.previousCords[0].longitude}{" "}
                         <MarkerButton
+                          data-testId={"firstaddAdditionalMarker"}
                           onClick={() => showAdditionalMarker(index, 0)}
                         >
                           +
@@ -195,6 +178,7 @@ const MainPage = () => {
                               <MarkerLi key={cordsPair.latitude}>
                                 {cordsPair.latitude}, {cordsPair.longitude}{" "}
                                 <MarkerButton
+                                  data-testId={"addAdditionalMarker"}
                                   onClick={() =>
                                     showAdditionalMarker(
                                       index,
@@ -238,13 +222,6 @@ const MainPage = () => {
                 </>
               )
             )}
-            <RoutingMachine
-              waypoints={convertCords(
-                marker.curCords,
-                marker.previousCords,
-                marker.previousCordsStatus
-              )}
-            />
           </>
         ))}
       </MapContainer>

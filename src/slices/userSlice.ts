@@ -80,7 +80,7 @@ const userSlice = createSlice({
       console.log("user logged out")
     })
     builder.addCase(registerUser.fulfilled, (state, action) => {
-      console.log("user registred out")
+      console.log("user registred")
     })
   },
 })

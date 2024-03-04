@@ -29,9 +29,10 @@ import { useNavigate } from "react-router-dom"
 import { logOut } from "src/slices/userSlice"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "src/store"
+import { useAppSelector } from "src/hooks"
 
 const Sidebar = ({ curPage }: { curPage: number }) => {
-  const user: User = JSON.parse(localStorage.getItem("curUser") || "[]")
+  const user: User = useAppSelector((state) => state.user.userData)
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
 

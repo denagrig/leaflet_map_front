@@ -14,6 +14,7 @@ type DeviceData = {
     status: string
 }
 type User = {
+  id: number,
   Login: string,
   Password: string,
   Name: string,

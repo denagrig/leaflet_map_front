@@ -71,6 +71,7 @@ export const markersData : DeviceData[] = [
 
 export const users : User[] = [
   {
+    id: 0,
     Login: "user",
     Password: "user",
     Role: Role.User,
@@ -79,6 +80,7 @@ export const users : User[] = [
     Email : "mail@mail.com"
   },
   {
+    id: 1,
     Login: "admin",
     Password: "admin",
     Role: Role.Admin,
@@ -137,6 +139,7 @@ export const red_icon = new Icon({
 })
 
 export const testUserLoggedOut:User = {
+  id: -1,
   Login: "testtest",
   Password: "testtest",
   Role: Role.LoggedOut,
@@ -156,6 +159,7 @@ export const wrongLoginPassord:LoginAndPassword = {
 }
 
 export const testUserUser:User = {
+  id: -1,
   Login: "testtest",
   Password: "testtest",
   Role: Role.User,
@@ -165,6 +169,7 @@ export const testUserUser:User = {
 }
 
 export const testUserAdmin:User = {
+  id: -1,
   Login: "testtest",
   Password: "testtest",
   Role: Role.Admin,
@@ -175,6 +180,7 @@ export const testUserAdmin:User = {
 
 
 export const testErrorUserData:User = {
+  id: -1,
   Login: "testtest",
   Password: "testtest",
   Role: Role.HasErrors,
@@ -286,6 +292,7 @@ export const testMarkerPos : MarkerPos = {
 }
 
 export const testEmptyUser: User = {
+  id: -1,
   Login: "",
   Password: "",
   Role: Role.LoggedOut,

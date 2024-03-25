@@ -4,6 +4,7 @@ import { LoginAndPassword, User } from "src/types"
 export const logInUser = async (loginAndPassword: LoginAndPassword) => {
   return new Promise<User>((resolve) => {
     let curUser: User = {
+      id: -1,
       Login: "",
       Password: "",
       Role: Role.HasErrors,
@@ -41,6 +42,7 @@ export const getUser = async () => {
 export const logOutUser = async () => {
   return new Promise<User>((resolve) => {
     const emptyUser: User = {
+      id: -1,
       Login: "",
       Password: "",
       Role: Role.LoggedOut,
@@ -70,6 +72,15 @@ export const postUser = async (userData: User) => {
       allUsers.push(userData)
     }
     localStorage.setItem("allUsers", JSON.stringify(allUsers))
+    resolve()
+  })
+}
+
+export const popUser = async (userId: number) => {
+  return new Promise<void>((resolve) => {
+
+    const axios = require("axios")
+    axios.delete(`http://localhost:8088/post/user/${userId}`)
     resolve()
   })
 }

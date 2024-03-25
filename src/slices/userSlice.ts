@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { Role } from "src/data"
 import { LoginAndPassword, User } from "src/types"
-import { getUser, logInUser, logOutUser, postUser } from "src/slices/userStorage"
+import { getUser, logInUser, logOutUser, popUser, postUser } from "src/slices/userStorage"
 
 export interface UserState {
   userData: User;
@@ -9,6 +9,7 @@ export interface UserState {
 
 const initialState: UserState = {
   userData: {
+    id: -1,
     Login: "",
     Password: "",
     Role: Role.Unloaded,
@@ -62,6 +63,18 @@ export const registerUser = createAsyncThunk<void, User>(
   }
 )
 
+export const deleteUser = createAsyncThunk<void, number>(
+  "userSlice/delete",
+  async (userId: number, thunkAPI) => {
+    try {
+      return await popUser(userId)
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e)
+    }
+  }
+)
+
+
 const userSlice = createSlice({
   name: "userSlice",
   initialState,
@@ -79,8 +92,11 @@ const userSlice = createSlice({
       state.userData = action.payload
       console.log("user logged out")
     })
-    builder.addCase(registerUser.fulfilled, (state, action) => {
+    builder.addCase(registerUser.fulfilled, () => {
       console.log("user registred")
+    })
+    builder.addCase(deleteUser.fulfilled, () => {
+      console.log("user deleted")
     })
   },
 })

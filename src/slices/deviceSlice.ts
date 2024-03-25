@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { DeviceData, MarkerPos } from "src/types"
-import { loadDevices } from "./deviceStorage"
+import { loadDevices, popDevice } from "./deviceStorage"
 import { Status } from "src/data"
 
 export interface DeviceState {
@@ -24,10 +24,21 @@ const initialState: DeviceState = {
 }
 
 export const loadDevicesData = createAsyncThunk<DeviceData[], void>(
-  "userSlice/logIn",
+  "deviceSlice/load",
   async (params: void, thunkAPI) => {
     try {
       return await loadDevices()
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e)
+    }
+  }
+)
+
+export const deleteDevice = createAsyncThunk<void, string>(
+  "deviceSlice/delete",
+  async (deviceId: string, thunkAPI) => {
+    try {
+      return await popDevice(deviceId)
     } catch (e) {
       return thunkAPI.rejectWithValue(e)
     }
@@ -56,6 +67,9 @@ const deviceSlice = createSlice({
     builder.addCase(loadDevicesData.fulfilled, (state, action) => {
       state.devicesData = action.payload
       console.log("devices data loaded")
+    })
+    builder.addCase(deleteDevice.fulfilled, () => {
+      console.log("device deleted")
     })
   },
 })

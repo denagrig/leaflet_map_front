@@ -29,6 +29,7 @@ const Register = () => {
       navigate("/login")
   }, [curUser.Role, navigate])
   const [userData, setUserData] = useState<User>({
+    id: -1,
     Login: "",
     Password: "",
     Role: Role.HasErrors,

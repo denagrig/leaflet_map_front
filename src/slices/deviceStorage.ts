@@ -43,3 +43,12 @@ export const loadDevices = async () => {
     })
   })
 }
+
+export const popDevice = async (deviceId: string) => {
+  return new Promise<void>((resolve) => {
+
+    const axios = require("axios")
+    axios.delete(`http://localhost:8088/post/device/${deviceId}`)
+    resolve()
+  })
+}

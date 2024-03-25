@@ -26,14 +26,16 @@ import {
 } from "@mui/material"
 import { DeviceData, User, deviceTableItem } from "src/types"
 import { Page, Role } from "src/data"
-import { useAppSelector } from "src/hooks"
+import { useAppDispatch, useAppSelector } from "src/hooks"
 import { useNavigate } from "react-router-dom"
 import { DeviceListButton } from "./DeviceList.styled"
+import { deleteDevice } from "src/slices/deviceSlice"
 
 const AdminUsersList = () => {
   const navigate = useNavigate()
   const curUser: User = useAppSelector((state) => state.user.userData)
   const devicesData: DeviceData[] = useAppSelector((state) => state.device.devicesData)
+  const dispatch = useAppDispatch()
 
   const convertData = (deviceData : DeviceData[]) =>{
     const deviceTableData: deviceTableItem[] = []
@@ -75,6 +77,10 @@ const AdminUsersList = () => {
     ],
     []
   )
+
+  const deleteSelectedDevice = (rowIndex: number) => {
+    dispatch(deleteDevice(devicesData[rowIndex].id))
+  }
 
   const table = useMaterialReactTable({
     columns,
@@ -126,7 +132,7 @@ const AdminUsersList = () => {
                 ))}
               </UserSearchTableHead>
               <TableBody>
-                {table.getRowModel().rows.map((row) => (
+                {table.getRowModel().rows.map((row, index) => (
                   <TableRow key={row.id} selected={row.getIsSelected()}>
                     {row.getVisibleCells().map((cell) => (
                       <TableCell width = "20%" align="center" variant="body" key={cell.id}>
@@ -134,7 +140,7 @@ const AdminUsersList = () => {
                       </TableCell>
                     ))}
                     <TableCell>
-                      <DeviceListButton>Удалить</DeviceListButton>
+                      <DeviceListButton onClick={() => deleteSelectedDevice(index)}>Удалить</DeviceListButton>
                     </TableCell>
                   </TableRow>
                 ))}

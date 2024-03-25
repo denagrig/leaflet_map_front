@@ -28,12 +28,14 @@ import {
 import { User, UserTableItem } from "src/types"
 import { Page, Role, users } from "src/data"
 import { useNavigate } from "react-router-dom"
-import { useAppSelector } from "src/hooks"
+import { useAppDispatch, useAppSelector } from "src/hooks"
+import { deleteUser } from "src/slices/userSlice"
 
 const AdminUsersList = () => {
   const navigate = useNavigate()
   const curUser: User = useAppSelector((state) => state.user.userData)
   const allUsers: User[] = users
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (curUser.Role == Role.User) navigate("/map")
@@ -53,6 +55,10 @@ const AdminUsersList = () => {
       userTableData.push(userTableRow)
     })
     return userTableData
+  }
+
+  const deleteSelectedUser = (rowIndex: number) => {
+    dispatch(deleteUser(allUsers[rowIndex].id))
   }
 
   const columns = useMemo<MRT_ColumnDef<UserTableItem>[]>(
@@ -130,7 +136,7 @@ const AdminUsersList = () => {
                 ))}
               </UserSearchTableHead>
               <TableBody>
-                {table.getRowModel().rows.map((row) => (
+                {table.getRowModel().rows.map((row, index) => (
                   <TableRow key={row.id} selected={row.getIsSelected()}>
                     {row.getVisibleCells().map((cell) => (
                       <TableCell width = "20%" align="center" variant="body" key={cell.id}>
@@ -138,7 +144,7 @@ const AdminUsersList = () => {
                       </TableCell>
                     ))}
                     <TableCell>
-                      <UserListButton>Удалить</UserListButton>
+                      <UserListButton onClick = {() => deleteSelectedUser(index)}>Удалить</UserListButton>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -81,6 +81,18 @@ export const popUser = async (userId: number) => {
 
     const axios = require("axios")
     axios.delete(`http://localhost:8088/post/user/${userId}`)
+    const allUsers: User[] = JSON.parse(
+      localStorage.getItem("allUsers") || "[]"
+    )
+    let deletePos = -1
+
+    allUsers.map((user, index) => {
+      if (userId== user.id) {
+        deletePos = index
+      }
+    })
+    allUsers.splice(deletePos, 1)
+    localStorage.setItem("allUsers", JSON.stringify(allUsers))
     resolve()
   })
 }
